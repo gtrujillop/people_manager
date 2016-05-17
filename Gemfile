@@ -9,6 +9,7 @@ gem 'jwt'
 
 gem 'rack-cors', :require => 'rack/cors'
 gem 'active_model_serializers', '~> 0.9.4'
+gem 'validates_timeliness', '~> 4.0'
 
 group :test do
   gem 'shoulda'
