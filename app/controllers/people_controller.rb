@@ -4,7 +4,7 @@ class PeopleController < ApplicationController
   # GET /people.json
   def index
     @people = Person.all
-    render json: @person, root: false
+    render json: @people, root: false
   end
 
   # GET /people/1
