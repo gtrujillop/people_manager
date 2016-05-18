@@ -40,9 +40,11 @@ class PeopleController < ApplicationController
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
+    @person = Person.find(params[:id])
+    if @person
+      SignOffMailJob.perform_later(@person)
+    end
     @person.destroy
-    SignOffMailJob.perform_later(@person)
-
     head :no_content
   end
 
