@@ -42,9 +42,8 @@ class PeopleController < ApplicationController
   def destroy
     @person = Person.find(params[:id])
     if @person
-      SignOffMailJob.perform_later(@person)
+      SignOffMailJob.perform_now(@person)
     end
-    @person.destroy
     head :no_content
   end
 
@@ -58,4 +57,3 @@ class PeopleController < ApplicationController
       params.require(:person).permit(:first_name, :last_name, :email, :job, :bio, :gender, :birthdate, :picture)
     end
 end
-
