@@ -19,6 +19,7 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params)
     if @person.save
       render json: @person, root: false,  status: :created, location: @person
+      LoginMailJob.perform_later(@person)
     else
       render json: @person.errors, status: :unprocessable_entity
     end
@@ -40,6 +41,7 @@ class PeopleController < ApplicationController
   # DELETE /people/1.json
   def destroy
     @person.destroy
+    SignOffMailJob.perform_later(@person)
 
     head :no_content
   end
