@@ -1,32 +1,32 @@
-class PersonsController < ApplicationController
+class PeopleController < ApplicationController
 
-  # GET /persons
-  # GET /persons.json
+  # GET /people
+  # GET /people.json
   def index
-    @persons = Person.all
-
-    render json: @person, each_serializer: PersonSerializer, root: false
+    @people = Person.all
+    render json: @people, root: false
   end
 
-  # GET /persons/1
-  # GET /persons/1.json
+  # GET /people/1
+  # GET /people/1.json
   def show
     render json: @person
   end
 
-  # POST /persons
-  # POST /persons.json
+  # POST /people
+  # POST /people.json
   def create
     @person = Person.new(person_params)
     if @person.save
-      render json: @person, serializer: PersonSerializer, root: false,  status: :created, location: @person
+      render json: @person, root: false,  status: :created, location: @person
+      LoginMailJob.perform_later(@person)
     else
       render json: @person.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /persons/1
-  # PATCH/PUT /persons/1.json
+  # PATCH/PUT /people/1
+  # PATCH/PUT /people/1.json
   def update
     @person = Person.find(params[:id])
 
@@ -37,11 +37,13 @@ class PersonsController < ApplicationController
     end
   end
 
-  # DELETE /persons/1
-  # DELETE /persons/1.json
+  # DELETE /people/1
+  # DELETE /people/1.json
   def destroy
-    @person.destroy
-
+    @person = Person.find(params[:id])
+    if @person
+      SignOffMailJob.perform_now(@person)
+    end
     head :no_content
   end
 
@@ -55,4 +57,3 @@ class PersonsController < ApplicationController
       params.require(:person).permit(:first_name, :last_name, :email, :job, :bio, :gender, :birthdate, :picture)
     end
 end
-
