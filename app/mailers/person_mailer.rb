@@ -1,5 +1,5 @@
 class PersonMailer < ActionMailer::Base
-  default from: 'noreturn@peoplesystem.com'
+  default from: 'gaston.trujillo.java@gmail.com'
 
   def login_mail(person)
     @person = person
