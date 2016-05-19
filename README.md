@@ -5,9 +5,9 @@ BE for the People Manager System
 
 API deployed in Heroku, available in https://people-manager-api.herokuapp.com/
   Using:
- `Heroku Postgres`
- `Redis Cloud`
- `SendGrid`
+- `Heroku Postgres`
+- `Redis Cloud`
+- `SendGrid`
 
 Technical Details
 =====================
@@ -23,3 +23,8 @@ Development
 - run the resque workers
 - run migration `rake db:migrate`
 - start rails server (rails server -p<<port>>)
+
+Testing
+=====================
+- using rspec 3.4.4
+- spec coverage for Person model and PeopleController
