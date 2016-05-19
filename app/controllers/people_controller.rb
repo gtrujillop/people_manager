@@ -49,11 +49,6 @@ class PeopleController < ApplicationController
   end
 
   private
-
-    def set_person
-      @person = Person.find(params[:id])
-    end
-
     def person_params
       params.require(:person).permit(:first_name, :last_name, :email, :job, :bio, :gender, :birthdate, :picture)
     end
