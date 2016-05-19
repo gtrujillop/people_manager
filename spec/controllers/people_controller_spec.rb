@@ -55,28 +55,48 @@ describe PeopleController do
   describe "POST create" do
     context "when params are correct" do
       it "creeates a new person" do
-        post :create, {person: {first_name: "Juan", last_name: "Perez", email:'my_email@email.com', job: 'Engineer', bio: 'blah', birthdate: '1988-08-11'}}
+        post :create, {person: {first_name: "Juan",
+                                last_name: "Perez",
+                                email:'my_email@email.com',
+                                job: 'Engineer',
+                                bio: 'blah',
+                                birthdate: '1988-08-11'}}
         expect(response).to be_success
       end
     end
 
     context "when params are not correct" do
       it "does not creates a new person" do
-        post :create, { person: { first_name: "Juan", last_name: "Perez", email:'my_email@email.com', job: 'Engineer', bio: 'blah', birthdate: '2017-08-11' } }
+        post :create, { person: { first_name: "Juan",
+                                  last_name: "Perez",
+                                  email:'my_email@email.com',
+                                  job: 'Engineer',
+                                  bio: 'blah',
+                                  birthdate: '2017-08-11' } }
         expect(response).to_not be_success
         expect(Person.all.length).to eq(0)
       end
     end
 
     it "renders json" do
-      post :create, { person: { first_name: "Juan", last_name: "Perez", email:'my_email@email.com', job: 'Engineer', bio: 'blah', birthdate: '1988-08-11' } }
+      post :create, { person: { first_name: "Juan",
+                                last_name: "Perez",
+                                email:'my_email@email.com',
+                                job: 'Engineer',
+                                bio: 'blah',
+                                birthdate: '1988-08-11' } }
       json_response = JSON.parse(response.body)
       expect(Person.all.length).to eq(1)
     end
 
     it "sends an email" do
       expect(LoginMailJob).to receive(:perform_later)
-      post :create, { person: { first_name: "Juan", last_name: "Perez", email:'my_email@email.com', job: 'Engineer', bio: 'blah', birthdate: '1988-08-11' } }
+      post :create, { person: { first_name: "Juan",
+                                last_name: "Perez",
+                                email:'my_email@email.com',
+                                job: 'Engineer',
+                                bio: 'blah',
+                                birthdate: '1988-08-11' } }
     end
   end
 
